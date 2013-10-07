@@ -50,9 +50,13 @@
 
 				<section>
 					<h2>sending email in rails apps - asynchronus or not?</h2>
-					<h2 class="fragment">if yes...</h2>
-					<h2 class="fragment">how?</h2>
+					<h2 class="fragment">it depends...</h2>
 				</section>
+
+				<section>
+					<h2>in our case: YES</h2>
+					<h2 class="fragment">but....how?</h2>
+				</section>	
 
 				<section>
 					<h2>redis + resque_mailer?</h2>
@@ -79,27 +83,30 @@
 							requires extra implementation: <br>
 							<img src="./img/delayed_job.png"/>
 						</li>
-						<ul>
-						</section>
+					</ul>
+				</section>
 
-						<section>
-							<h2>custom RabbitMQ solution?</h2>
-							<h2 class="fragment">MAYBE...</h2>
-							<ul>
-								<li class="fragment">
-									promising, but over complicated
-								</li>
-							</ul>
-						</section>
+				<section>
+					<h2>none of existing solutions offers emergency/backup/secondary delivery method in case failure</h2>
+				</section>
 
-						<section>
-							<p>
-								<img src="./img/blog_post.png" style="height: 400px"/>
-							</p>
-							<a href="https://blog.serverdensity.com/replacing-rabbitmq-with-mongodb/">
-								https://blog.serverdensity.com/replacing-rabbitmq-with-mongodb
-							</a>
-						</section>
+				<section>
+					<h2>custom RabbitMQ solution?</h2>
+					<ul>
+						<li class="fragment">
+							powerful, but over complicated
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<p>
+						<img src="./img/blog_post.png" style="height: 400px"/>
+					</p>
+					<a href="https://blog.serverdensity.com/replacing-rabbitmq-with-mongodb/">
+						https://blog.serverdensity.com/replacing-rabbitmq-with-mongodb
+					</a>
+				</section>
 
 						<section>
 							<h2>why mongo?</h2>
@@ -107,7 +114,7 @@
 								<li>swapping</li>
 								<li>journaling</li>
 								<li>atomic <code>findAndModify</code> operation</li>
-								<li>scalability</li>
+								<li>performing and scalable</li>
 							</ul>
 						</section>
 
@@ -129,7 +136,7 @@
 									rails plugin providing <code>ActionMailer</code> delivery method, generators &amp; capistrano recipies
 								</li>							
 								<li class="fragment">
-									(standalone) worker
+									(standalone) worker with base and emergency delivery method
 								</li>
 							</ul>			
 						</section>
@@ -152,8 +159,8 @@ $ bundle exec rails generate mongo_mailer
 <pre class="fragment" style="margin-top:40px"><code data-trim>
 # config/deploy.rb
 require 'mongo_mailer/capistrano'
-</code></pre>
-<pre class="fragment"><code data-trim>
+</code>
+<code data-trim>
 $ cap mongo_mailer:start|stop|restart
 </code></pre>
 						</section>
